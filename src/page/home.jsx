@@ -11,6 +11,8 @@ import Instructor from "../component/section/instructor";
 import Sponsor from "../component/section/sponsor";
 import Student from "../component/section/student";
 
+import EventTwo from "../component/section/event-2";
+
 
 const Home = () => {
     return (
@@ -19,7 +21,7 @@ const Home = () => {
             <Banner />
             <Sponsor />
             <Category />
-            <Course />
+            <EventTwo />
             <About />
             <Instructor />
             <Student />
