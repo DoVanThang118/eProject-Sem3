@@ -1,5 +1,9 @@
-import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import React, { useRef,useContext, useState } from "react";
+import UserContext from '../../store/context';
+import api from '../../services/api';
+
+
 
 const phoneNumber = "+800-123-4567 6587";
 const address = "Beverley, New York 224 USA";
@@ -32,6 +36,16 @@ const Header = () => {
     const [menuToggle, setMenuToggle] = useState(false);
 	const [socialToggle, setSocialToggle] = useState(false);
 	const [headerFiexd, setHeaderFiexd] = useState(false);
+    const {state,dispatch} = useContext(UserContext);
+    const logout =()=>{ 
+      const u = null;
+      dispatch({type:"UPDATE_USER",payload:u});
+      state.userlogin = u;
+      setTimeout(()=>{dispatch({type:"HIDE_LOADING"})},1000);
+      localStorage.setItem("state",JSON.stringify(state));
+      api.defaults.headers.common["Authorization"] = `Bearer ${null}`;
+  }
+  
 
 	window.addEventListener("scroll", () => {
 		if (window.scrollY > 200) {
@@ -114,9 +128,19 @@ const Header = () => {
                                     <li><NavLink to="/contact">Contact</NavLink></li>
                                 </ul>
                             </div>
-                            
+                            {(state.userlogin!=null)?(
+                                <div>
+                          
+                            <Link to="/login" className="login" onClick={logout}><i className="icofont-user"></i> <span>LOG OUT</span> </Link>
+
+                     
+                                </div>
+                            ):(<div>
                             <Link to="/login" className="login"><i className="icofont-user"></i> <span>LOG IN</span> </Link>
                             <Link to="/signup" className="signup"><i className="icofont-users"></i> <span>SIGN UP</span> </Link>
+                            </div>)}
+                            
+                          
 
                             <div className={`header-bar d-lg-none ${menuToggle ? "active" : "" }`} onClick={() => setMenuToggle(!menuToggle)}>
                                 <span></span>

@@ -31,11 +31,33 @@ import ShopDetails from "./page/shop-single";
 import SignupPage from "./page/signup";
 import TeamPage from "./page/team";
 import TeamSingle from "./page/team-single";
+import INIT_STATE from './store/initState';
+import  UserContext, { UserProvider } from './store/context';
+import reducer from './store/reducer';
+import React, { useContext, useReducer, useState } from "react";
 
 
 
 function App() {
+	const localState = localStorage.getItem("state")?JSON.parse(localStorage.getItem("state")):INIT_STATE;
+	const [state,dispatch] = useReducer(reducer,localState);
+	const styles = {
+	  backgroundImage:"url(/Wedges-3s-200px.gif)",
+	  width:"100%",
+	  height:"100%",
+	  position:"fixed",
+	  top:0,
+	  left:0,
+	  backgroundColor:"#000000",
+	  opacity:0.8,
+	  zIndex:100,
+	  backgroundRepeat:"no-repeat",
+	  backgroundPosition:"center center",
+	  display: state.isLoading?"block":"none"
+	}
 	return (
+		<UserProvider value={{state,dispatch}}>
+		<div id='loading' style={styles}></div>
 		<BrowserRouter>
 			<ScrollToTop />
 			<Routes>
@@ -68,6 +90,7 @@ function App() {
 				<Route path="*" element={<ErrorPage />} />
 			</Routes>
 		</BrowserRouter>
+		</UserProvider>
 	);
 }
 

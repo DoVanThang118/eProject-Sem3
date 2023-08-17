@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import Footer from "../component/layout/footer";
 import Header from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
+import React, { useContext, useState } from "react";
+import { auth_login } from "../services/auth.service";
+import UserContext from "../store/context";
+import api from "../services/api";
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -12,34 +18,67 @@ const btnText = "Submit Now";
 
 
 const socialList = [
-    {
-        link: '#',
-        iconName: 'icofont-facebook',
-        className: 'facebook',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-twitter',
-        className: 'twitter',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-linkedin',
-        className: 'linkedin',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-instagram',
-        className: 'instagram',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-pinterest',
-        className: 'pinterest',
-    },
+    // {
+    //     link: '#',
+    //     iconName: 'icofont-facebook',
+    //     className: 'facebook',
+    // },
+    // {
+    //     link: '#',
+    //     iconName: 'icofont-twitter',
+    //     className: 'twitter',
+    // },
+    // {
+    //     link: '#',
+    //     iconName: 'icofont-linkedin',
+    //     className: 'linkedin',
+    // },
+    // {
+    //     link: '#',
+    //     iconName: 'icofont-instagram',
+    //     className: 'instagram',
+    // },
+    // {
+    //     link: '#',
+    //     iconName: 'icofont-pinterest',
+    //     className: 'pinterest',
+    // },
 ]
 
 const LoginPage = () => {
+    const {state,dispatch} = useContext(UserContext);
+    const [user,setUser] = useState({email:"",password:""});
+    const navigate = useNavigate();
+    
+    const handleChange = (event)=>{
+        user[event.target.name] = event.target.value;
+        setUser(user);
+    }
+   
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        const u = await auth_login(user);
+        if(u!=null){
+            dispatch({type:"UPDATE_USER",payload:u});
+        state.userlogin = u;
+        setTimeout(()=>{dispatch({type:"HIDE_LOADING"})},1000);
+        localStorage.setItem("state",JSON.stringify(state));
+        api.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
+        console.log(state.userlogin);
+        }
+        if(state.userlogin != null){
+            console.log("chạy vào đây r");
+            return  navigate("/");
+        }
+        
+        
+    }
+    
+
+
+
+
+
     return (
         <Fragment>
             <Header />
@@ -48,12 +87,13 @@ const LoginPage = () => {
                 <div className="container">
                     <div className="account-wrapper">
                         <h3 className="title">{title}</h3>
-                        <form className="account-form">
+                        <form className="account-form" onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <input
                                     type="text"
-                                    name="name"
-                                    placeholder="User Name *"
+                                    name="email"
+                                    placeholder="User Email*"
+                                    onChange={handleChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -61,15 +101,16 @@ const LoginPage = () => {
                                     type="password"
                                     name="password"
                                     placeholder="Password *"
+                                    onChange={handleChange}
                                 />
                             </div>
                             <div className="form-group">
                                 <div className="d-flex justify-content-between flex-wrap pt-sm-2">
-                                    <div className="checkgroup">
+                                    {/* <div className="checkgroup">
                                         <input type="checkbox" name="remember" id="remember" />
                                         <label htmlFor="remember">Remember Me</label>
-                                    </div>
-                                    <Link to="/forgetpass">Forget Password?</Link>
+                                    </div> */}
+                                    {/* <Link to="/forgetpass">Forget Password?</Link> */}
                                 </div>
                             </div>
                             <div className="form-group text-center">
@@ -77,16 +118,10 @@ const LoginPage = () => {
                             </div>
                         </form>
                         <div className="account-bottom">
-                            <span className="d-block cate pt-10">Don’t Have any Account?  <Link to="/signup">Sign Up</Link></span>
+                            {/* <span className="d-block cate pt-10">Don’t Have any Account?  <Link to="/signup">Sign Up</Link></span>
                             <span className="or"><span>or</span></span>
-                            <h5 className="subtitle">{socialTitle}</h5>
-                            <ul className="lab-ul social-icons justify-content-center">
-                                {socialList.map((val, i) => (
-                                    <li key={i}>
-                                        <a href={val.link} className={val.className}><i className={val.iconName}></i></a>
-                                    </li>
-                                ))}
-                            </ul>
+                            <h5 className="subtitle">{socialTitle}</h5> */}
+                       
                         </div>
                     </div>
                 </div>
