@@ -4,7 +4,8 @@
 const SelectCatagory = ({select}) => {
     return (
         <select defaultValue={select}>
-            <option value="all">All Categories</option>
+            <option value="all" disabled="disabled">Select Province/City *</option>
+            {/*<option value="all">All Categories</option>*/}
             <option value="uncategorized">Uncategorized</option>
             <option value="academy">Academy</option>
             <option value="agency">Agency</option>

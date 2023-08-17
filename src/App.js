@@ -36,6 +36,8 @@ import  UserContext, { UserProvider } from './store/context';
 import reducer from './store/reducer';
 import React, { useContext, useReducer, useState } from "react";
 
+import FormInput from "./page/form-input";
+
 
 
 function App() {
@@ -88,6 +90,9 @@ function App() {
 				<Route path="signup" element={<SignupPage />} />
 				<Route path="forgetpass" element={<ForgetPass />} />
 				<Route path="*" element={<ErrorPage />} />
+
+				<Route path="form-input" element={<FormInput />} />
+
 			</Routes>
 		</BrowserRouter>
 		</UserProvider>

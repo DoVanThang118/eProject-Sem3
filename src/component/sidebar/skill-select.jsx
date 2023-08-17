@@ -5,7 +5,8 @@
 const SkillSelect = ({select}) => {
     return (
         <select defaultValue={select}>
-            <option value="all">All Skills</option>
+            <option value="all" disabled="disabled">Select Team/Village</option>
+            {/*<option value="all">All Skills</option>*/}
             <option value="html">HTML</option>
             <option value="css">CSS</option>
             <option value="php">PHP</option>

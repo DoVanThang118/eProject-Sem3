@@ -4,7 +4,8 @@
 const PriceSelect = ({select}) => {
     return (
         <select defaultValue={select}>
-            <option value="all">All Prices</option>
+            <option value="all" disabled="disabled">Select Ward/Commune *</option>
+            {/*<option value="all">All Prices</option>*/}
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
