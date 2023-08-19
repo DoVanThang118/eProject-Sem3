@@ -2,6 +2,10 @@
 import { Link } from "react-router-dom";
 import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useContext, useState, useEffect } from "react";
+import {get} from "../../services/packdata.service";
+import UserContext from "../../store/context";
+
 
 
 const subTitle = "Don’t Miss the Day";
@@ -124,6 +128,20 @@ const eventSliderList = [
 ]
 
 const EventTwo = () => {
+
+    const {state,dispatch} = useContext(UserContext);
+const [packdata, setPackData] = useState([]);
+const getPack = async ()=>{
+    dispatch({type:"SHOW_LOADING"});
+    const pack = await get();
+    setPackData(pack);
+    dispatch({type:"HIDE_LOADING"});
+
+  }
+  useEffect(()=>{
+   getPack();
+    
+   },[]);
     return (
         <div className="event-section style-2 padding-tb section-bg-ash">
             <div className="container">
@@ -163,23 +181,19 @@ const EventTwo = () => {
                                 },
                             }}
                         >
-                            {eventSliderList.map((val, i) => (
+                            {packdata.map((val, i) => (
                                 <SwiperSlide key={i}>
-                                    <div className="event-item style-2">
+                                    <div className="event-item style-2 h-100" >
                                         <div className="event-inner">
-                                            <div className="event-thumb">
-                                                <img src={`${val.imgUrl}`} alt={`${val.imgAlt}`} />
+                                            <div className="event-thumb" style={{height:200}}>
+                                                <img src={val.thumnail} />
                                             </div>
                                             <div className="event-content">
-                                                <h5>{val.title}</h5>
-                                                <h2>{val.price}</h2>
-                                                <span>{val.duration}</span>
-                                                <ul className="lab-ul">
-                                                    {val.servList.map((val, i) => (
-                                                        <li key={i}>{val.text}</li>
-                                                    ))}
-                                                </ul>
-                                                <Link to="/login" className="lab-btn"><span>{val.btnText}</span></Link>
+                                                <h5>{val.name}</h5>
+                                                <h2>{val.typename}</h2>
+                                                <span>{val.description}</span>
+                                                
+                                                <Link to="/login" className="lab-btn"><span>BUY</span></Link>
                                             </div>
                                         </div>
                                     </div>
