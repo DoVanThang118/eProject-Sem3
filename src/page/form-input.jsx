@@ -29,10 +29,7 @@ const FormInput = () => {
                             <div className="w-100"><h4>Enter address</h4></div>
                             <div className="form-group">
                                 <div className="select-item">
-                                    {/*<SelectCatagory select={'all'} />*/}
-                                    <select className="form-select form-select-sm mb-3" id="city">
-                                        <option value="" selected>Chọn tỉnh thành</option>
-                                    </select>
+                                    <SelectCatagory select={'all'} />
                                     <div className="select-icon">
                                         <i className="icofont-rounded-down"></i>
                                     </div>
