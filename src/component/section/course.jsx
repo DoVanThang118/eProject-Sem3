@@ -6,7 +6,7 @@ const title = "Pick A Course To Get Started";
 
 const courseList = [
     {
-        imgUrl: 'assets/images/course/28svg',
+        imgUrl: 'assets/images/event/05.jpg',
         imgAlt: 'event rajibraj91 rajibraj',
         title: 'Private Car',
         price: '$329.00',
@@ -219,6 +219,9 @@ const Course = () => {
                             <SwiperSlide key={i}>
                                 <div className="event-item style-2">
                                     <div className="event-inner">
+                                        <div className="event-thumb">
+                                            <img src={`${val.imgUrl}`} alt={`${val.imgAlt}`} />
+                                        </div>
                                         <div className="event-content">
                                             <h5>{val.title}</h5>
                                             <h2>{val.price}</h2>
@@ -228,7 +231,7 @@ const Course = () => {
                                                     <li key={i}>{val.text}</li>
                                                 ))}
                                             </ul>
-                                            <Link to="/shop-single" className="lab-btn"><span>Buy Now</span></Link>
+                                            <Link to="/login" className="lab-btn"><span>{val.btnText}</span></Link>
                                         </div>
                                     </div>
                                 </div>
