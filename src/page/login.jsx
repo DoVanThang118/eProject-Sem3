@@ -64,10 +64,8 @@ const LoginPage = () => {
         setTimeout(()=>{dispatch({type:"HIDE_LOADING"})},1000);
         localStorage.setItem("state",JSON.stringify(state));
         api.defaults.headers.common["Authorization"] = `Bearer ${u.token}`;
-        console.log(state.userlogin);
         }
         if(state.userlogin != null){
-            console.log("chạy vào đây r");
             return  navigate("/");
         }
         
