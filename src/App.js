@@ -32,6 +32,8 @@ import SignupPage from "./page/signup";
 import TeamPage from "./page/team";
 import TeamSingle from "./page/team-single";
 import INIT_STATE from './store/initState';
+import Profile from "./page/profile";
+import FormContract from "./page/formcontract";
 import  UserContext, { UserProvider } from './store/context';
 import reducer from './store/reducer';
 import React, { useContext, useReducer, useState } from "react";
@@ -88,6 +90,8 @@ function App() {
 				<Route path="signup" element={<SignupPage />} />
 				<Route path="forgetpass" element={<ForgetPass />} />
 				<Route path="*" element={<ErrorPage />} />
+				<Route path="profile" element={<Profile />} />
+				<Route path="formcontract" element={<FormContract/>} />
 			</Routes>
 		</BrowserRouter>
 		</UserProvider>
