@@ -5,11 +5,15 @@ import PageHeader from "../component/layout/pageheader";
 import GoogleMap from "../component/sidebar/googlemap";
 
 
+
 const subTitle = "Get in touch with us";
 const title = "We're Always Eager To Hear From You!";
 const conSubTitle = "Get in touch with Contact us";
 const conTitle = "Fill The Form Below So We Can Get To Know You And Your Needs Better.";
 const btnText = "Send our Message";
+
+
+
 
 
 const contactList = [

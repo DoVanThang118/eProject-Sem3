@@ -251,7 +251,7 @@ const Profile = () => {
                                             </td>
                                             <td className="cat-price"> {(contract.ngaybatdausudung!=null)?new Date(contract.ngaybatdausudung).toLocaleDateString():<></>}</td>
                                             <td className="cat-price"> {(contract.ngayhethan!=null)?new Date(contract.ngayhethan).toLocaleDateString():<></>}</td>
-                                            <td className="cat-toprice">{contract.giatrihopdong}</td>
+                                            <td className="cat-toprice">{contract.giatrihopdong} USD</td>
                                             <td className="cat-edit">
                                                {(contract.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(contract.status==1)?<div className="p-content">Mời thanh toán</div>
@@ -290,7 +290,7 @@ const Profile = () => {
                                                     <div className="p-content">
                                                         <div style={{textAlign:"center",marginBottom:30,marginTop:30}}>
                                                         <h4>Mời Quý Khách {contract.customername} Thanh Toán </h4>
-                                                        <h4>Total Money: {contract.giatrihopdong}$ </h4>
+                                                        <h4>Total Money: {contract.giatrihopdong} USD </h4>
 
                                                         </div>
                                                        

@@ -9,10 +9,10 @@ export const get = async ()=>{
     }
  }
 
- export const create_contract = async(contract) =>{
+ export const create_contract = async(contract,add) =>{
     const url = "contracts"
     try{
-        const rs = await api.post(url,{customername: contract.customername ,address: contract.address , district:contract.district, city:contract.city, tel:contract.tel, email:contract.email, chukydongtien:contract.chukydongtien,packdataId:contract.packdataId, usersId: contract.usersId});
+        const rs = await api.post(url,{customername: contract.customername ,address: contract.address , district:add.dis, city:add.pro, tel:contract.tel, email:contract.email, chukydongtien:contract.chukydongtien,packdataId:contract.packdataId, usersId: contract.usersId});
         alert("Create Success");
         return rs.data;
     }catch(error){

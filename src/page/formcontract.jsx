@@ -22,6 +22,9 @@ import {create_contract} from "../services/contract.service";
 import UserContext from "../store/context";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import axios from 'axios';
+
+const host = "https://provinces.open-api.vn/api/";
 
 const btnText = "Đăng kí";
 const socialList = [
@@ -56,11 +59,19 @@ const socialList = [
  
 
 const FormContract = () => {
+    const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  const[add,setAdd] = useState({pro:0,dis:0,war:0});
+  
+
+
     const navigate = useNavigate();
     const {state,dispatch} = useContext(UserContext);
     const {id} = useParams();
     const [pack,setPack] = useState({});
-    const [contract, setContract] = useState({customername: "",address:"",district:"",city:"", tel:"",email:state.userlogin.email,chukydongtien:0,packdataId:id,usersId: state.userlogin.id});
+    const [contract, setContract] = useState({customername: "",address:"", tel:"",email:state.userlogin.email,chukydongtien:0,packdataId:id,usersId: state.userlogin.id});
 
     const findPack = async ()=>{
         const pack = await find(id);
@@ -72,10 +83,15 @@ const FormContract = () => {
     const handleChange = (event) => {
         contract[event.target.name] = event.target.value;
         setContract(contract);
+        setContract({...contract,address:contract.address+"/"+add.war})
+       
+
+
+
       };
       const handleSubmit = async (e) => {
         e.preventDefault();
-        const t = await create_contract(contract);
+        const t = await create_contract(contract,add);
         console.log(t);
         if(t!=null){
        return  navigate("/profile");
@@ -83,18 +99,87 @@ const FormContract = () => {
       };
     useEffect(()=>{
         findPack();
+        callAPI('https://provinces.open-api.vn/api/?depth=1');
         },[]);
+
+
         const handlechuky = (e)=>{
             const t = e.target.value;
             setContract({...contract,chukydongtien:t})
         }
-        console.log(contract);
+        
+
+
+        const callAPI = (api) => {
+            axios.get(api)
+              .then((response) => {
+                setProvinces(response.data);
+              });
+          }
+        
+          const callApiDistrict = (api) => {
+            axios.get(api)
+              .then((response) => {
+                setDistricts(response.data.districts);
+              });
+          }
+        
+          const callApiWard = (api) => {
+            axios.get(api)
+              .then((response) => {
+                setWards(response.data.wards);
+              });
+          }
+        
+          const renderOptions = (array) => {
+            return (
+              <>
+                <option disabled value="">Chọn</option>
+                {array.map((element) => (
+                  <option key={element.code} value={element.code}>{element.name}</option>
+                ))}
+              </>
+            );
+          }
+        
+          const handleProvinceChange = (event) => {
+            const provinceValue = event.target.value;
+            callApiDistrict(host + "p/" + provinceValue + "?depth=2");
+            const findpro = provinces.find((provinces)=>provinces.code == provinceValue)
+            setAdd({...add,pro:findpro.name});
+            
+          };
+        
+          const handleDistrictChange = (event) => {
+            const districtValue = event.target.value;
+            callApiWard(host + "d/" + districtValue + "?depth=2");
+            const finddis = districts.find((districts)=>districts.code == districtValue)
+            setAdd({...add,dis:finddis.name});
+
+
+          };
+        
+          const handleWardChange = async (event) => {
+            const wardsValue = event.target.value;
+            // setAdd({...add,war:wardsValue});
+            const findward = wards.find((wards)=>wards.code == wardsValue);
+            setAdd({...add,war:findward.name})
+
+          };
+    
+        
+          
+
+          console.log(add);
+          console.log(contract);
         
   
 
     return (
         <Fragment>
             <Header />
+          
+            
             <PageHeader title={'Thông Tin Đăng Ký Gói Cước'} curPage={'Infomation Contract'} />
             <div className="blog-section blog-single padding-tb section-bg">
                 <div className="container">
@@ -120,6 +205,13 @@ const FormContract = () => {
                                     <p>Price 1 Quarter: {pack.gia1quy}</p>
                                     <hr></hr>
                                          <form onSubmit={handleSubmit} style={{marginTop:25}} id="commentform" className="contact-form">
+                                         <div>
+     
+     
+     
+
+                                        </div>
+                                               
                                                 {/*<input */}
                                                 {/*    type="text"*/}
                                                 {/*    name="name"*/}
@@ -180,11 +272,26 @@ const FormContract = () => {
 
                                              <div className="w-100"><h4>Enter address</h4></div>
                                              <div className="form-group">
-                                                 <input  onChange={handleChange} type="text" name="district" className="form-control" placeholder="District *" required={true}/>
+                                                <label style={{marginBottom:5}}>Tỉnh/Thành Phố</label>
+                                                <select id="province"  onChange={handleProvinceChange}>
+                                                    {renderOptions(provinces)}
+                                                </select>
+
                                              </div>
                                              <div className="form-group">
-                                                 <input  onChange={handleChange} type="text" name="city" className="form-control" placeholder="City *" required={true}/>
-                                             </div>
+                                             <label style={{marginBottom:5}}>Quận/Huyện</label>
+
+                                                <select id="district" placeholder="Quận/Huyện" onChange={handleDistrictChange}>
+                                                    {renderOptions(districts)}
+                                                </select>                                             
+                                            </div>
+                                            <div className="form-group">
+                                            <label style={{marginBottom:5}}>Phường/Xã</label>
+
+                                                <select id="ward" placeholder="Phường/Xã" onChange={handleWardChange}>
+                                                    {renderOptions(wards)}
+                                                </select>                                            
+                                            </div>
                                              {/* <div className="form-group">
                                                  <div className="select-item">
                                                      <SelectCatagory select={'all'} />
