@@ -94,7 +94,7 @@ const FormContract = () => {
         const t = await create_contract(contract,add);
         console.log(t);
         if(t!=null){
-       return  navigate("/profile");
+       return  navigate("/blog");
         }
       };
     useEffect(()=>{

@@ -6,7 +6,7 @@ import PageHeader from "../component/layout/pageheader";
 import Progress from "../component/sidebar/progress";
 import Rating from "../component/sidebar/rating";
 import React, { useContext, useState, useEffect } from "react";
-import {findbyemail} from "../services/contract.service";
+import {find} from "../services/contract.service";
 import {updatepayment} from "../services/contract.service";
 
 import UserContext from "../store/context";
@@ -123,10 +123,11 @@ const Profile = () => {
     const navigate = useNavigate();
     const {state,dispatch} = useContext(UserContext);
     const [contract, setContract] = useState({});
+    const {id} = useParams();
     const[packdata ,setPackData] = useState({});
 
     const findContract = async ()=>{
-        const con = await findbyemail(state.userlogin.email);
+        const con = await find(id);
         setContract(con);
         setPackData(con.packdata);
     }
@@ -145,7 +146,6 @@ const Profile = () => {
                 return  navigate("/profile");
 
             }
-
           }
 
           console.log(contract.id);

@@ -90,7 +90,7 @@ function App() {
 				<Route path="signup" element={<SignupPage />} />
 				<Route path="forgetpass" element={<ForgetPass />} />
 				<Route path="*" element={<ErrorPage />} />
-				<Route path="profile" element={<Profile />} />
+				<Route path="blog/profile/:id" element={<Profile />} />
 				<Route path="formcontract/:id" element={<FormContract/>} />
 			</Routes>
 		</BrowserRouter>

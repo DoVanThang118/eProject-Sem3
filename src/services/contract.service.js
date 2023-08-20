@@ -20,6 +20,16 @@ export const get = async ()=>{
         return null;
     }
 }
+export const getallofuser = async(id)=>{
+    try{
+        const url = "contracts/allcontract?id="+id;
+        const rs = await api.get(url);
+        return rs.data;
+       }catch(error){
+           return [];
+       }
+
+ }
 
 
  export const tinhtong = async ()=>{
