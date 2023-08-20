@@ -91,7 +91,7 @@ function App() {
 				<Route path="forgetpass" element={<ForgetPass />} />
 				<Route path="*" element={<ErrorPage />} />
 				<Route path="profile" element={<Profile />} />
-				<Route path="formcontract" element={<FormContract/>} />
+				<Route path="formcontract/:id" element={<FormContract/>} />
 			</Routes>
 		</BrowserRouter>
 		</UserProvider>

@@ -5,6 +5,14 @@ import Header from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
 import Progress from "../component/sidebar/progress";
 import Rating from "../component/sidebar/rating";
+import React, { useContext, useState, useEffect } from "react";
+import {findbyemail} from "../services/contract.service";
+import {updatepayment} from "../services/contract.service";
+
+import UserContext from "../store/context";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { PayPalButton } from "react-paypal-button-v2";
 
 const name = "Profile";
 const degi = "Master of Education Degree";
@@ -112,6 +120,34 @@ const awardList = [
 ]
 
 const Profile = () => {
+    const navigate = useNavigate();
+    const {state,dispatch} = useContext(UserContext);
+    const [contract, setContract] = useState({});
+    const[packdata ,setPackData] = useState({});
+
+    const findContract = async ()=>{
+        const con = await findbyemail(state.userlogin.email);
+        setContract(con);
+        setPackData(con.packdata);
+    }
+    console.log(contract);
+
+
+    useEffect(()=>{
+        findContract();
+        },[]);
+        const successPaymentHandler = async ()=>{
+            dispatch({type:"SHOW_LOADING"});
+
+            await updatepayment(contract.id);
+            dispatch({type:"HIDE_LOADING"});
+
+          }
+
+          console.log(contract.id);
+
+
+
     return (
         <Fragment>
             <Header />
@@ -126,17 +162,52 @@ const Profile = () => {
                                 </div>
                                 <div className="instructor-single-content">
                                     <h4 className="title">Name</h4>
-                                    <p className="ins-dege">{degi}</p>
+                                    <p className="ins-dege">{contract.customername}</p>
                                     <Rating />
                                     <p className="ins-desc">{desc}</p>
                                    
                                     <ul className="lab-ul">
-                                        {memInfoLisst.map((val, i) => (
-                                            <li className="d-flex flex-wrap justify-content-start" key={i}>
-                                                <span className="list-name">{val.leftText}</span>
-                                                <span className="list-attr">{val.rightText}</span>
+                                        
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Address</span>
+                                                <span className="list-attr">{contract.address} </span>
                                             </li>
-                                        ))}
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Email </span>
+                                                <span className="list-attr">{contract.email}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Phone Number </span>
+                                                <span className="list-attr">{contract.tel}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Pack Data </span>
+                                                <span className="list-attr">{packdata.name}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Price 1 Month </span>
+                                                <span className="list-attr">{packdata.gia1thang}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Price 1 Quar1er </span>
+                                                <span className="list-attr">{packdata.gia1quy}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Chu kỳ </span>
+                                                <span className="list-attr">{contract.chukydongtien}</span>
+                                            </li>
+                                            <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Content PackData </span>
+                                                <span className="list-attr">{packdata.description}</span>
+                                            </li>
+                                             <li className="d-flex flex-wrap justify-content-start">
+                                                <span className="list-name">Hotline</span>
+                                                <span className="list-attr">1900000009</span>
+                                            </li>
+
+                                         
+                                           
+                                        
                                         <li className="d-flex flex-wrap justify-content-start">
                                             <span className="list-name">Follow Us</span>
                                             <ul className="lab-ul list-attr d-flex flex-wrap justify-content-start">
@@ -168,24 +239,34 @@ const Profile = () => {
                                         <th className="cat-price"style={{textAlign:"left"}}>Ngày kết thúc</th>
                                         <th className="cat-toprice">Gía trị hợp đồng</th>
                                         <th className="cat-edit">Trạng thái</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                     <td className="product-item cat-product">
                                                 <div className="p-content">
-                                                    22/08/2023
+                                                {(contract.ngaytaohopdong!=null)?new Date(contract.ngaytaohopdong).toLocaleDateString():<></>}
                                                 </div>
                                             </td>
-                                            <td className="cat-price"> 22/08/2023</td>
-                                            <td className="cat-price"> 22/08/2023</td>
-                                            <td className="cat-toprice">1000000</td>
+                                            <td className="cat-price"> {(contract.ngaybatdausudung!=null)?new Date(contract.ngaybatdausudung).toLocaleDateString():<></>}</td>
+                                            <td className="cat-price"> {(contract.ngayhethan!=null)?new Date(contract.ngayhethan).toLocaleDateString():<></>}</td>
+                                            <td className="cat-toprice">{contract.giatrihopdong}</td>
                                             <td className="cat-edit">
-                                                <a href="#">Thanh toán ngay</a>
-                                    </td>
+                                               {(contract.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
+                                               :(contract.status==1)?<div className="p-content">Mời thanh toán</div>
+                                               :(contract.status==2)?<div className="p-content">Thanh toán thành công chờ lắp đặt</div>
+                                                :(contract.status==3)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
+                                                :(contract.status==4)?<div className="p-content">Mời quý khách đóng phí</div>
+                                                :(contract.status==5)?<div className="p-content">Rất xin lỗi không lắp đặt được tại địa chỉ quý khách cung cấp</div>
+                                                :<p></p>
+                                            
+                                            }
+                                            </td>
+                                           
                                     </tr>
                                     <tr>
-                                    <td className="product-item cat-product">
+                                    {/* <td className="product-item cat-product">
                                                 <div className="p-content">
                                                     22/08/2023
                                                 </div>
@@ -195,10 +276,39 @@ const Profile = () => {
                                             <td className="cat-toprice">1000000</td>
                                             <td className="cat-edit">
                                                 <a href="#">Thông báo sự cố</a>
-                                    </td>
+                                    </td> */}
                                     </tr>
                                 </tbody>
                             </table>
+                            
+                        </div>
+
+                        <div className="cart-top" style={{display:"flex",justifyContent:"center",marginTop:20}}>
+
+                        {
+                                                    (contract.status==1)?
+                                                    <div className="p-content">
+                                                        <div style={{textAlign:"center",marginBottom:30,marginTop:30}}>
+                                                        <h4>Mời Quý Khách {contract.customername} Thanh Toán </h4>
+                                                        <h4>Total Money: {contract.giatrihopdong}$ </h4>
+
+                                                        </div>
+                                                       
+
+                                                            <PayPalButton
+                                                            options={{
+                                                                "vault": true,
+                                                                "client-id": "AR86XShHEggIM0YzMF6FdymWDWPkpjh7mx-PDVlwis1Ve0HRniLtcaaIjPLMDDw-MZPi89PNeLAmuKrd"
+                                                            }}
+
+                                                            amount={contract.giatrihopdong}
+                                                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                                                            onSuccess={successPaymentHandler} />
+                                                        
+                                                    </div>
+
+                                                    :<div></div>
+                                                }
                         </div>
                         
                     </div>

@@ -4,11 +4,11 @@
 const PriceSelect = ({select}) => {
     return (
         <select defaultValue={select}>
-            <option value="all">All Prices</option>
+            <option value="all">Chu kỳ đóng tiền cước</option>
             <option value="1">1</option>
-            <option value="2">2</option>
+            {/* <option value="2">2</option> */}
             <option value="3">3</option>
-            <option value="4">4</option>
+            {/* <option value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
@@ -104,7 +104,7 @@ const PriceSelect = ({select}) => {
             <option value="97">97</option>
             <option value="98">98</option>
             <option value="99">99</option>
-            <option value="100">100</option>
+            <option value="100">100</option> */}
         </select>
     );
 }

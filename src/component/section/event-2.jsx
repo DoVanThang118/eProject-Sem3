@@ -193,7 +193,7 @@ const getPack = async ()=>{
                                                 <h2>{val.typename}</h2>
                                                 <span>{val.description}</span>
                                                 
-                                                <Link to="/login" className="lab-btn"><span>BUY</span></Link>
+                                                {(state.userlogin!=null)?<Link to={"formcontract/"+val.id} className="lab-btn"><span>BUY</span></Link>:<Link to="/login" className="lab-btn"><span>LOGIN</span></Link> }
                                             </div>
                                         </div>
                                     </div>
