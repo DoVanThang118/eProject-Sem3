@@ -72,14 +72,9 @@ const Banner = () => {
                                     <input type="text" placeholder="Keywords of your course" />
                                     <button type="submit">Search Course</button>
                                 </form>
-                                {/*<div className="banner-catagory d-flex flex-wrap">*/}
-                                {/*    <p>Most Popular : </p>*/}
-                                {/*    <ul className="lab-ul d-flex flex-wrap">*/}
-                                {/*        {catagoryList.map((val, i) => (*/}
-                                {/*            <li key={i}><a href={val.link}>{val.name}</a></li>*/}
-                                {/*        ))}*/}
-                                {/*    </ul>*/}
-                                {/*</div>*/}
+
+                      
+
                             </div>
                         </div>
                         <div className="col-xxl-7 col-xl-6">
