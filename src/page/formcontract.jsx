@@ -197,8 +197,12 @@ const FormContract = () => {
                                      <h1 className="title-border" style={{textAlign:"center"}}>Thông Tin Gói Cước</h1>
                                      <div className="add-comment" >
 
-                                     <img src={pack.thumnail}  width={250}
-                                         style={{objectFit:'cover', marginLeft:220}}/>
+                                        <div style={{display:"flex",justifyContent:"center"}}>
+                                        <img src={pack.thumnail}  width={250}
+                                         style={{objectFit:'cover',borderRadius:10}}/>
+                                        </div>
+
+                                     
                                     <h5 className="title-border" style={{textAlign:"center"}}>Tên Gói Cước: {pack.name}</h5>
                                     <p>Content: {pack.description}</p>
                                     <p>Price 1 Month: {pack.gia1thang}</p>

@@ -139,8 +139,12 @@ const Profile = () => {
         const successPaymentHandler = async ()=>{
             dispatch({type:"SHOW_LOADING"});
 
-            await updatepayment(contract.id);
+           const t = await updatepayment(contract.id);
             dispatch({type:"HIDE_LOADING"});
+            if(t!=null){
+                return  navigate("/profile");
+
+            }
 
           }
 
