@@ -76,8 +76,8 @@ const Header = () => {
             <div className="header-bottom">
                 <div className="container">
                     <div className="header-wrapper">
-                        <div className="logo">
-                            <Link to="/"><img src="assets/images/logo/01.png" alt="logo" /></Link>
+                        <div className="logo" >
+                            <Link to="/"><img src="assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20}} /></Link>
                         </div>
                         <div className="menu-area">
                             <div className="menu">

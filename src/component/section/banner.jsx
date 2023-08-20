@@ -1,9 +1,9 @@
 
 
 
-const subTitle = "Online education";
-const title = <h2 className="title"><span className="d-lg-block">Learn The</span> Skills You Need <span className="d-lg-block">To Succeed</span></h2>;
-const desc = "Free online courses from the world’s Leading experts. join 18+ million Learners today.";
+const subTitle = "Cheap internet for students";
+const title = <h2 className="title"><span className="d-lg-block">Internet Strong</span>You Need<span className="d-lg-block"></span></h2>;
+const desc = "Gói cước Super 30M được FPT nâng băng thông từ gói cước Super 25M để đáp ứng nhu cầu thiết yếu người dùng.Super 30 là gói internet FPT rẻ nhất được áp dụng tại Hà Nội và HCM với cước chỉ 190.000 đ/tháng, quý khách sẽ được trải nghiệm gói internet tốc độ lên đến 30 Mbps.";
 
 
 const catagoryList = [
