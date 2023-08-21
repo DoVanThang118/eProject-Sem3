@@ -77,12 +77,13 @@ const Header = () => {
                 <div className="container">
                     <div className="header-wrapper">
                         <div className="logo" >
-                            <Link to="/"><img src="assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20}} /></Link>
+                            {/* <Link to="/"><img src="assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20}} /></Link> */}
                         </div>
                         <div className="menu-area">
                             <div className="menu">
                                 <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
-                                <li><NavLink to="/">Home One</NavLink></li>
+                                    
+                                <li><NavLink to="/">Home Nexus Service</NavLink></li>
 
                                     {/* <li className="menu-item-has-children">
 
