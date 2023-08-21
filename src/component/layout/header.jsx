@@ -82,10 +82,12 @@ const Header = () => {
                         <div className="menu-area">
                             <div className="menu">
                                 <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
-                                    <li className="menu-item-has-children">
+                                <li><NavLink to="/">Home One</NavLink></li>
+
+                                    {/* <li className="menu-item-has-children">
+
                                         <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,0">Home</a>
                                         <ul className="lab-ul dropdown-menu">
-                                            <li><NavLink to="/">Home One</NavLink></li>
                                             <li><NavLink to="/index-2">Home Two</NavLink></li>
                                             <li><NavLink to="/index-3">Home Three</NavLink></li>
                                             <li><NavLink to="/index-4">Home Four</NavLink></li>
@@ -93,15 +95,15 @@ const Header = () => {
                                             <li><NavLink to="/index-6">Home Six</NavLink></li>
                                             <li><NavLink to="/index-7">Home Seven</NavLink></li>
                                         </ul>
-                                    </li>
-                                    <li className="menu-item-has-children">
+                                    </li> */}
+                                    {/* <li className="menu-item-has-children">
                                         <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,0">Courses</a>
                                         <ul className="lab-ul dropdown-menu">
                                             <li><NavLink to="/course">Course</NavLink></li>
                                             <li><NavLink to="/course-single">Course Details</NavLink></li>
         
                                         </ul>
-                                    </li>
+                                    </li> */}
                                     {/* <li className="menu-item-has-children">
                                         <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,0">Blog</a>
                                         <ul className="lab-ul dropdown-menu">
@@ -113,7 +115,7 @@ const Header = () => {
                                     {(state.userlogin!=null)?<li><NavLink to="/blog">MyPackData</NavLink></li>:<></>}
                                     
 
-                                    <li className="menu-item-has-children">
+                                    {/* <li className="menu-item-has-children">
                                         <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,0">Pages</a>
                                         <ul className="lab-ul dropdown-menu">
                                             <li><NavLink to="/about">About</NavLink></li>
@@ -126,7 +128,7 @@ const Header = () => {
                                             <li><NavLink to="/search-none">Search None</NavLink></li>
                                             <li><NavLink to="/404">404</NavLink></li>
                                         </ul>
-                                    </li>
+                                    </li> */}
                                     <li><NavLink to="/contact">Contact</NavLink></li>
                                     {/* <li><NavLink to="/profile">Profile</NavLink></li> */}
                                     {/* <li><NavLink to="/formcontract"></NavLink></li> */}

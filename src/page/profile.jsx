@@ -142,10 +142,6 @@ const Profile = () => {
 
            const t = await updatepayment(contract.id);
             dispatch({type:"HIDE_LOADING"});
-            if(t!=null){
-                return  navigate("/profile");
-
-            }
           }
 
           console.log(contract.id);
@@ -155,14 +151,14 @@ const Profile = () => {
     return (
         <Fragment>
             <Header />
-            <PageHeader title={'Profile'} curPage={'Profile'} />
+            <PageHeader title={'Contract Profile'} curPage={'Contract Profile'} />
             <section className="instructor-single-section padding-tb section-bg">
                 <div className="container">
                     <div className="instructor-wrapper">
                         <div className="instructor-single-top">
                             <div className="instructor-single-item d-flex flex-wrap justify-content-between">
                                 <div className="instructor-single-thumb">
-                                    <img src="assets/images/instructor/single/01.jpg" alt="instructor" />
+                                    <img src="../../assets/images/instructor/single/01.jpg" alt="instructor" />
                                 </div>
                                 <div className="instructor-single-content">
                                     <h4 className="title">Name</h4>
