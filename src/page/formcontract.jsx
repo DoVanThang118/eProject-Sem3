@@ -23,7 +23,7 @@ import UserContext from "../store/context";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-
+import { Link } from "react-router-dom";
 const host = "https://provinces.open-api.vn/api/";
 
 const btnText = "Đăng kí";
@@ -183,6 +183,8 @@ const FormContract = () => {
             <PageHeader title={'Thông Tin Đăng Ký Gói Cước'} curPage={'Infomation Contract'} />
             <div className="blog-section blog-single padding-tb section-bg">
                 <div className="container">
+                <Link to="/"><img src="../assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-880}} /></Link>
+
                     <div className="row justify-content-center">
                         <div className="col-lg-8 col-12">
                             <article>

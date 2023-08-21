@@ -40,6 +40,9 @@ const BlogPage = () => {
             <PageHeader title={'My Pack Data'} curPage={'My Pack Data'} />
             <div className="blog-section padding-tb section-bg">
                 <div className="container">
+                <Link to="/"><img src="assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-890}} /></Link>
+
+                    
                     <div className="section-wrapper">
                         <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center g-4">
                             {con.map((val, i) => (

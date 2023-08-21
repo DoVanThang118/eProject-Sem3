@@ -79,7 +79,11 @@ const Banner = () => {
     return (
         <section className="banner-section">
             <div className="container">
+ <Link to="/"><img src="assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-190}} /></Link>
+
+
                 <div className="section-wrapper">
+
                     <div className="row align-items-center">
                         <div className="col-xxl-5 col-xl-6 col-lg-10">
                             <div className="banner-content">

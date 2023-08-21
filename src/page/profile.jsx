@@ -13,6 +13,7 @@ import UserContext from "../store/context";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
+import { Link } from "react-router-dom";
 
 const name = "Profile";
 const degi = "Master of Education Degree";
@@ -154,6 +155,8 @@ const Profile = () => {
             <PageHeader title={'Contract Profile'} curPage={'Contract Profile'} />
             <section className="instructor-single-section padding-tb section-bg">
                 <div className="container">
+                <Link to="/"><img src="../../assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-880}} /></Link>
+
                     <div className="instructor-wrapper">
                         <div className="instructor-single-top">
                             <div className="instructor-single-item d-flex flex-wrap justify-content-between">
