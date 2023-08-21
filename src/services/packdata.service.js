@@ -10,6 +10,25 @@ export const get = async ()=>{
     }
  }
 
+ export const getsearch = async (search)=>{
+    try{
+     const url = "packdata/search?name="+search.name;
+     const rs = await api.get(url);
+     return rs.data;
+    }catch(error){
+        return [];
+    }
+ }
+
+ export const getoutstanding = async ()=>{
+    try{
+     const url = "packdata/get-outstanding";
+     const rs = await api.get(url);
+     return rs.data;
+    }catch(error){
+        return [];
+    }
+ }
  
  export const find = async (id)=>{
     try {

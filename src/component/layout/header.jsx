@@ -110,7 +110,8 @@ const Header = () => {
                                             <li><NavLink to="/blog-single">Blog Single</NavLink></li>
                                         </ul>
                                     </li> */}
-                                    <li><NavLink to="/blog">MyPackData</NavLink></li>
+                                    {(state.userlogin!=null)?<li><NavLink to="/blog">MyPackData</NavLink></li>:<></>}
+                                    
 
                                     <li className="menu-item-has-children">
                                         <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,0">Pages</a>
@@ -127,8 +128,8 @@ const Header = () => {
                                         </ul>
                                     </li>
                                     <li><NavLink to="/contact">Contact</NavLink></li>
-                                    <li><NavLink to="/profile">Profile</NavLink></li>
-                                    <li><NavLink to="/formcontract"></NavLink></li>
+                                    {/* <li><NavLink to="/profile">Profile</NavLink></li> */}
+                                    {/* <li><NavLink to="/formcontract"></NavLink></li> */}
                                 </ul>
                             </div>
                             {(state.userlogin!=null)?(

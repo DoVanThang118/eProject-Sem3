@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React, { useContext, useState, useEffect } from "react";
-import {get} from "../../services/packdata.service";
+import { getoutstanding} from "../../services/packdata.service";
 import UserContext from "../../store/context";
 
 
@@ -133,7 +133,7 @@ const EventTwo = () => {
 const [packdata, setPackData] = useState([]);
 const getPack = async ()=>{
     dispatch({type:"SHOW_LOADING"});
-    const pack = await get();
+    const pack = await getoutstanding();
     setPackData(pack);
     dispatch({type:"HIDE_LOADING"});
 

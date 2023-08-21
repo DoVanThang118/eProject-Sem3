@@ -1,4 +1,8 @@
-
+import React, { useContext, useState, useEffect } from "react";
+import {getsearch} from "../../services/packdata.service";
+import UserContext from "../../store/context";
+import { Link } from "react-router-dom";
+import { SwiperSlide } from "swiper/react";
 
 
 const subTitle = "Cheap internet for students";
@@ -55,6 +59,23 @@ const shapeList = [
 ]
 
 const Banner = () => {
+    const { state, dispatch } = useContext(UserContext);
+    const [search, setSearch] = useState({name: ""});
+    const[packdata,setPack] = useState([]);
+    const handleChange = (event) => {
+      search[event.target.name] = event.target.value;
+      setSearch(search);
+    };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const t = await getsearch(search);
+      setPack(t);
+      
+    };
+    console.log(packdata);
+
+
+
     return (
         <section className="banner-section">
             <div className="container">
@@ -65,12 +86,12 @@ const Banner = () => {
                                 <h6 className="subtitle text-uppercase fw-medium">{subTitle}</h6>
                                 {title}
                                 <p className="desc">{desc}</p>
-                                <form action="/">
+                                <form action="#" onSubmit={handleSubmit}>
                                     <div className="banner-icon">
                                         <i className="icofont-search"></i>
                                     </div>
-                                    <input type="text" placeholder="Keywords of your course" />
-                                    <button type="submit">Search Course</button>
+                                    <input onChange={handleChange} type="text" name ="name" placeholder="Keywords of your pack data" />
+                                    <button type="submit">Search Data</button>
                                 </form>
 
                       
@@ -86,13 +107,32 @@ const Banner = () => {
                 </div>
             </div>
             <div className="all-shapes"></div>
-            <div className="cbs-content-list d-none">
-                <ul className="lab-ul">
-                    {shapeList.map((val, i) => (
-                        <li className={val.className} key={i}><a href={val.link}>{val.name}</a></li>
-                    ))}
-                </ul>
-            </div>
+            <div className="section-wrapper" style={{marginTop:30}}>
+                    <div className="row g-4 justify-content-center row-cols-xl-4 row-cols-md-2 row-cols-1 ">
+                    {packdata.map((val, i) => (
+                                <SwiperSlide key={i} style={{ borderRadius:20}}>
+                                    <div className="event-item style-2 h-100" >
+                                        <div className="event-inner">
+                                            <div className="event-thumb" style={{height:160}}>
+                                                <img src={val.thumnail} />
+                                            </div>
+                                            <div className="event-content">
+                                                <h5>{val.name}</h5>
+                                                <h2>{val.typename}</h2>
+                                                <span>{val.description}</span>
+                                                {(state.userlogin!=null)?<Link to={"formcontract/"+val.id} className="lab-btn"><span>BUY</span></Link>:<Link to="/login" className="lab-btn"><span>LOGIN</span></Link> }
+                                                
+                                                
+
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                    </div>
+                </div>
         </section>
     );
 }
