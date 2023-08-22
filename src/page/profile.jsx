@@ -189,11 +189,11 @@ const Profile = () => {
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Price 1 Month </span>
-                                                <span className="list-attr">{packdata.gia1thang}</span>
+                                                <span className="list-attr">{packdata.gia1thang} USD</span>
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Price 1 Quar1er </span>
-                                                <span className="list-attr">{packdata.gia1quy}</span>
+                                                <span className="list-attr">{packdata.gia1quy} USD</span>
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Chu kỳ </span>

@@ -207,8 +207,8 @@ const FormContract = () => {
                                      
                                     <h5 className="title-border" style={{textAlign:"center"}}>Tên Gói Cước: {pack.name}</h5>
                                     <p>Content: {pack.description}</p>
-                                    <p>Price 1 Month: {pack.gia1thang}</p>
-                                    <p>Price 1 Quarter: {pack.gia1quy}</p>
+                                    <p>Price 1 Month: {pack.gia1thang} USD</p>
+                                    <p>Price 1 Quarter: {pack.gia1quy} USD</p>
                                     <hr></hr>
                                          <form onSubmit={handleSubmit} style={{marginTop:25}} id="commentform" className="contact-form">
                                          <div>
