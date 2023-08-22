@@ -258,9 +258,9 @@ const Profile = () => {
                                             <td className="cat-edit">
                                                {(contract.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(contract.status==1)?<div className="p-content">Mời thanh toán</div>
-                                               :(contract.status==2)?<div className="p-content">Thanh toán thành công chờ lắp đặt</div>
-                                                :(contract.status==3)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
-                                                :(contract.status==4)?<div className="p-content">Mời quý khách đóng phí</div>
+                                               :(contract.status==2)?<div className="p-content">Thanh toán thành công chờ duyệt thiết bị lắp đặt</div>
+                                                :(contract.status==3)?<div className="p-content">Duyệt thiết bị thành công đang lắp đặt</div>
+                                                :(contract.status==4)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
                                                 :(contract.status==5)?<div className="p-content">Rất xin lỗi không lắp đặt được tại địa chỉ quý khách cung cấp</div>
                                                 :<p></p>
                                             
