@@ -7,13 +7,14 @@ import Progress from "../component/sidebar/progress";
 import Rating from "../component/sidebar/rating";
 import React, { useContext, useState, useEffect } from "react";
 import {find} from "../services/contract.service";
-import {updatepayment} from "../services/contract.service";
+import {updatepayment,giahanhopdong} from "../services/contract.service";
 
 import UserContext from "../store/context";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
+import { create_payment, filter } from "../services/payment.service";
 
 const name = "Profile";
 const degi = "Master of Education Degree";
@@ -126,10 +127,15 @@ const Profile = () => {
     const [contract, setContract] = useState({});
     const {id} = useParams();
     const[packdata ,setPackData] = useState({});
+    const[payment,setPayment] = useState({contractId:0, userId:state.userlogin.id, totalmoney:0,content:""})
+    const[listpay,setListpay] = useState([]);
 
     const findContract = async ()=>{
         const con = await find(id);
+        const li = await filter(id);
+        setListpay(li);
         setContract(con);
+        setPayment({...payment,totalmoney:con.giatrihopdong, contractId:con.id,content:"Payment Contract"+con.id});
         setPackData(con.packdata);
     }
     console.log(contract);
@@ -142,10 +148,29 @@ const Profile = () => {
             dispatch({type:"SHOW_LOADING"});
 
            const t = await updatepayment(contract.id);
+           const c = await create_payment(payment);
             dispatch({type:"HIDE_LOADING"});
+            if(c!=null){
+                window.location.reload();
+               }
+
+          }
+          const successPay = async ()=>{
+            dispatch({type:"SHOW_LOADING"});
+
+           const t = await giahanhopdong(contract.id);
+           const c = await create_payment(payment);
+          
+           
+            dispatch({type:"HIDE_LOADING"});
+            if(c!=null){
+                window.location.reload();
+               }
           }
 
           console.log(contract.id);
+          console.log(payment);
+          console.log(listpay);
 
 
 
@@ -234,6 +259,8 @@ const Profile = () => {
                 <div>
                     <div className="section-wrapper">
                         <div className="cart-top">
+                        <h4 style={{textAlign:"center", margin:10}}>Hợp đồng số {contract.id}</h4>
+
                             <table>
                                 <thead>
                                      <tr>
@@ -241,6 +268,8 @@ const Profile = () => {
                                         <th className="cat-price">Ngày bắt đầu</th>
                                         <th className="cat-price"style={{textAlign:"left"}}>Ngày kết thúc</th>
                                         <th className="cat-toprice">Gía trị hợp đồng</th>
+                                        <th className="cat-price">Pack Data</th>
+
                                         <th className="cat-edit">Trạng thái</th>
 
                                     </tr>
@@ -255,6 +284,8 @@ const Profile = () => {
                                             <td className="cat-price"> {(contract.ngaybatdausudung!=null)?new Date(contract.ngaybatdausudung).toLocaleDateString():<></>}</td>
                                             <td className="cat-price"> {(contract.ngayhethan!=null)?new Date(contract.ngayhethan).toLocaleDateString():<></>}</td>
                                             <td className="cat-toprice">{contract.giatrihopdong} USD</td>
+                                            <td className="cat-price">{packdata.name}</td>
+
                                             <td className="cat-edit">
                                                {(contract.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(contract.status==1)?<div className="p-content">Mời thanh toán</div>
@@ -268,6 +299,72 @@ const Profile = () => {
                                             </td>
                                            
                                     </tr>
+                                    <tr>
+                                    {/* <td className="product-item cat-product">
+                                                <div className="p-content">
+                                                    22/08/2023
+                                                </div>
+                                            </td>
+                                            <td className="cat-price" > 22/08/2023</td>
+                                            <td className="cat-price"> 22/08/2023</td>
+                                            <td className="cat-toprice">1000000</td>
+                                            <td className="cat-edit">
+                                                <a href="#">Thông báo sự cố</a>
+                                    </td> */}
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <div className="cart-top">
+                            <h4 style={{textAlign:"center", margin:10}}>Lịch sử thanh toán của hợp đồng số {contract.id}</h4>
+                            <table>
+                                <thead>
+                                     <tr>
+                                        <th className="cat-price">STT</th>
+
+                                        <th className="cat-price">Ngày thanh toán</th>
+                                        <th className="cat-price"style={{textAlign:"left"}}>NumberPay</th>
+
+                                        <th className="cat-price" style={{textAlign:"left"}}>Nội dung</th>
+                                        <th className="cat-price" style={{textAlign:"left"}}>Thời gian gia hạn</th>
+
+                                        <th className="cat-price">Số tiền</th>
+                                        {/* <th className="cat-toprice">Gía trị hợp đồng</th>
+                                        <th className="cat-edit">Trạng thái</th> */}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listpay.map((e,k)=>{
+                                return (
+
+                                    <tr key={k}>
+                                            <td className="cat-price"> {k+1}</td>
+
+                                            <td className="cat-price"> {(e.datepay!=null)?new Date(e.datepay).toLocaleDateString():<></>}</td>
+                                            <td className="cat-price" > {e.id}</td>
+
+                                            <td className="cat-price"> {e.content}</td>
+                                            <td className="cat-price"> {contract.chukydongtien} Month</td>
+
+                                            <td className="cat-price">{e.totalmoney} USD</td>
+                                           
+                                           
+                                    </tr>
+
+
+
+
+
+                                )
+                            })
+
+                                    
+                                    
+                                    
+                                    }
+                                    
                                     <tr>
                                     {/* <td className="product-item cat-product">
                                                 <div className="p-content">
@@ -307,6 +404,32 @@ const Profile = () => {
                                                             amount={contract.giatrihopdong}
                                                             // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                                                             onSuccess={successPaymentHandler} />
+                                                        
+                                                    </div>
+
+                                                    :<div></div>
+                                                }
+
+                                                
+                        {
+                                                    (contract.status==4)?
+                                                    <div className="p-content">
+                                                        <div style={{textAlign:"center",marginBottom:30,marginTop:30}}>
+                                                        <h4>Mời Quý Khách {contract.customername} Gia Hạn Hợp Đồng Số {contract.id} </h4>
+                                                        <h4>Total Money: {contract.giatrihopdong} USD /{contract.chukydongtien} Month </h4>
+
+                                                        </div>
+                                                       
+
+                                                            <PayPalButton
+                                                            options={{
+                                                                "vault": true,
+                                                                "client-id": "AR86XShHEggIM0YzMF6FdymWDWPkpjh7mx-PDVlwis1Ve0HRniLtcaaIjPLMDDw-MZPi89PNeLAmuKrd"
+                                                            }}
+
+                                                            amount={contract.giatrihopdong}
+                                                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                                                            onSuccess={successPay} />
                                                         
                                                     </div>
 

@@ -98,6 +98,17 @@ export const getallofuser = async(id)=>{
     }
  }
 
+ export const giahanhopdong = async(id) =>{
+
+    const url = "contracts/extend?id="+id
+    try{
+        const rs = await api.put(url);
+        return rs.data;
+    }catch(error){
+        return null;
+    }
+ }
+
  export const tong_month = async () =>{
      const url ="contracts/totalmonth";
      try{
