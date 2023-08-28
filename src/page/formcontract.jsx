@@ -86,8 +86,6 @@ const FormContract = () => {
         setContract({...contract,address:contract.address+"/"+add.war})
        
 
-
-
       };
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -279,7 +277,14 @@ const FormContract = () => {
                                              <div className="w-100"><h4>Enter address</h4></div>
                                              <div className="form-group">
                                                 <label style={{marginBottom:5}}>Tỉnh/Thành Phố</label>
-                                                <select id="province"  onChange={handleProvinceChange}>
+                                                <select   style={{
+                                                    border: '1px solid #f0f0f0',
+                                                    borderRadius: '4px',
+                                                    backgroundColor: '#fff',
+                                                    boxShadow: '0px 2px 4px 0px rgba(0,0,0,.06)',
+                                                    height: '57px',
+                                                    padding: '0 25px'
+                                                }} id="province"  onChange={handleProvinceChange} required={true}>
                                                     {renderOptions(provinces)}
                                                 </select>
 
@@ -287,17 +292,50 @@ const FormContract = () => {
                                              <div className="form-group">
                                              <label style={{marginBottom:5}}>Quận/Huyện</label>
 
-                                                <select id="district" placeholder="Quận/Huyện" onChange={handleDistrictChange}>
+                                                <select   style={{
+                                                        border: '1px solid #f0f0f0',
+                                                        borderRadius: '4px',
+                                                        backgroundColor: '#fff',
+                                                        boxShadow: '0px 2px 4px 0px rgba(0,0,0,.06)',
+                                                        height: '57px',
+                                                        padding: '0 25px'
+                                                    }} id="district" placeholder="Quận/Huyện" onChange={handleDistrictChange} required={true}>
                                                     {renderOptions(districts)}
                                                 </select>                                             
                                             </div>
                                             <div className="form-group">
                                             <label style={{marginBottom:5}}>Phường/Xã</label>
 
-                                                <select id="ward" placeholder="Phường/Xã" onChange={handleWardChange}>
+                                                        <select   style={{
+                                                        border: '1px solid #f0f0f0',
+                                                        borderRadius: '4px',
+                                                        backgroundColor: '#fff',
+                                                        boxShadow: '0px 2px 4px 0px rgba(0,0,0,.06)',
+                                                        height: '57px',
+                                                        padding: '0 25px'
+                                                    }} id="ward" placeholder="Phường/Xã" onChange={handleWardChange} required={true}>
                                                     {renderOptions(wards)}
                                                 </select>                                            
                                             </div>
+                                            <div className="form-group" style={{marginTop:28}}>
+                                                 <div className="select-item">
+                                                    <select   style={{
+                                                        border: '1px solid #f0f0f0',
+                                                        borderRadius: '4px',
+                                                        backgroundColor: '#fff',
+                                                        boxShadow: '0px 2px 4px 0px rgba(0,0,0,.06)',
+                                                        height: '57px',
+                                                        padding: '0 25px'
+                                                    }} onClick={handlechuky} required={true} >
+                                                    <option value="">Chu kỳ đóng tiền cước</option>
+                                                    <option value="1">1 Month</option>
+                                                    <option value="3">3 Month</option>
+                                                </select>
+                                                     <div className="select-icon">
+                                                         <i className="icofont-rounded-down"></i>
+                                                     </div>
+                                                 </div>
+                                             </div>
                                              {/* <div className="form-group">
                                                  <div className="select-item">
                                                      <SelectCatagory select={'all'} />
@@ -326,18 +364,7 @@ const FormContract = () => {
                                              <div className="form-group w-100">
                                                  <input onChange={handleChange} type="text" name="address" className="form-control" placeholder="Address *" required={true}/>
                                              </div>
-                                             <div className="form-group">
-                                                 <div className="select-item">
-                                                 <select onClick={handlechuky}>
-                                                    <option value="">Chu kỳ đóng tiền cước</option>
-                                                    <option value="1">1 Month</option>
-                                                    <option value="3">3 Month</option>
-                                                </select>
-                                                     <div className="select-icon">
-                                                         <i className="icofont-rounded-down"></i>
-                                                     </div>
-                                                 </div>
-                                             </div>
+                                             
                                              {/* <div className="form-group w-100">
                                                  <input type="text" className="form-control" placeholder="Address 2"/>
                                              </div> */}
