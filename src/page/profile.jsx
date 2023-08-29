@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
 import { create_payment, filter } from "../services/payment.service";
+import Swal from "sweetalert2";
 
 const name = "Profile";
 const degi = "Master of Education Degree";
@@ -140,6 +141,13 @@ const Profile = () => {
     }
     console.log(contract);
 
+    const Alert = () =>{
+		Swal.fire(
+			'Paysucces!',
+			'You clicked the button!',
+			'success'
+		  )
+	}
 
     useEffect(()=>{
         findContract();
@@ -150,9 +158,11 @@ const Profile = () => {
            const t = await updatepayment(contract.id);
            const c = await create_payment(payment);
             dispatch({type:"HIDE_LOADING"});
-            if(c!=null){
-                window.location.reload();
-               }
+            // if(c!=null){
+            //     window.location.reload();
+            //    }
+            Alert();
+
 
           }
           const successPay = async ()=>{
@@ -163,9 +173,14 @@ const Profile = () => {
           
            
             dispatch({type:"HIDE_LOADING"});
-            if(c!=null){
-                window.location.reload();
-               }
+
+            Alert();
+
+            // if(c!=null){
+            //     window.location.reload();
+            //    }
+               
+
           }
 
           console.log(contract.id);
@@ -180,6 +195,7 @@ const Profile = () => {
             <PageHeader title={'Contract Profile'} curPage={'Contract Profile'} />
             <section className="instructor-single-section padding-tb section-bg">
                 <div className="container">
+                    {/* <button onClick={Alert}>test</button> */}
                 <Link to="/"><img src="../../assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-880}} /></Link>
 
                     <div className="instructor-wrapper">

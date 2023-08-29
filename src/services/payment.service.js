@@ -1,4 +1,20 @@
 import api from "./api";
+import Swal from "sweetalert2";
+const Alert = () =>{
+    Swal.fire(
+        'Pay Success!',
+        'You clicked the button!',
+        'success'
+      )
+}
+const AlertFail = () =>{
+    Swal.fire(
+        'Pay Failed!',
+        'Something went wrong!',
+        'error'
+      )
+}
+
 export const get = async ()=>{
     try{
      const url = "extendcontract";
@@ -13,8 +29,10 @@ export const get = async ()=>{
     const url = "extendcontract"
     try{
         const rs = await api.post(url,{contractId: payment.contractId, userId: payment.userId, totalmoney: payment.totalmoney, content: payment.content   });
+        // Alert();
         return rs.data;
     }catch(error){
+        // AlertFail();
         return null;
     }
 }

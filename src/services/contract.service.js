@@ -1,4 +1,20 @@
 import api from "./api";
+
+import Swal from "sweetalert2";
+const Alert = () =>{
+    Swal.fire(
+        'Create Contract Success!',
+        'You clicked the button!',
+        'success'
+      )
+}
+const AlertFail = () =>{
+    Swal.fire(
+        'Create Contract Failed!',
+        'You clicked the button!',
+        'fail'
+      )
+}
 export const get = async ()=>{
     try{
      const url = "contracts";
@@ -13,10 +29,10 @@ export const get = async ()=>{
     const url = "contracts"
     try{
         const rs = await api.post(url,{customername: contract.customername ,address: contract.address , district:add.dis, city:add.pro, tel:contract.tel, email:contract.email, chukydongtien:contract.chukydongtien,packdataId:contract.packdataId, usersId: contract.usersId});
-        alert("Create Success");
+        Alert();
         return rs.data;
     }catch(error){
-        alert("Create Fail");
+        AlertFail();        
         return null;
     }
 }

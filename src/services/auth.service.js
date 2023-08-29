@@ -1,4 +1,19 @@
 import api from "./api";
+import Swal from "sweetalert2";
+const Alert = () =>{
+    Swal.fire(
+        'Success!',
+        'You clicked the button!',
+        'success'
+      )
+}
+const AlertFail = () =>{
+    Swal.fire(
+        'Tài khoản hoặc mật khẩu không đúng!',
+        'Something went wrong!',
+        'error'
+      )
+}
 
 export const auth_login = async (user)=>{
     const url = "auth/login";
@@ -9,7 +24,8 @@ export const auth_login = async (user)=>{
 
         return rs.data;
     } catch (error) {
-        alert("Tài khoản hoặc mật khẩu không đúng");
+        // alert("Tài khoản hoặc mật khẩu không đúng");
+        AlertFail();
         return null;
     }
     
@@ -22,7 +38,7 @@ export const auth_profile = async ()=>{
        // const token = rs.data.token;
         return rs.data;
     } catch (error) {
-        alert("Tài khoản hoặc mật khẩu không đúng");
+        AlertFail();
         return null;
     }
 }
@@ -30,11 +46,11 @@ export const register_member = async(user)=>{
     const url = "auth/register";
     try{
         const rs = await api.post(url,{name:user.name, email:user.email, password:user.password, roleTitle:user.roleTitle, jobTitle:user.jobTitle});
-        alert("Tạo tài khoản thành công");
+        Alert();
         return rs.data;
 
     }catch(error){
-        alert("Tạo tài khoản thất bại");
+        AlertFail();
         return null;
     }
 }
