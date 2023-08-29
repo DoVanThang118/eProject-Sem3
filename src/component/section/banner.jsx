@@ -122,7 +122,7 @@ const Banner = () => {
                                             </div>
                                             <div className="event-content">
                                                 <h5>{val.name}</h5>
-                                                <h2>{val.typename}</h2>
+                                                <h4>{val.typename}</h4>
                                                 <span>{val.description}</span>
                                                 <p>Prie 1 Month: {val.gia1thang}</p>
                                                 <p>Prie 1 Quarter: {val.gia1quy}</p>
