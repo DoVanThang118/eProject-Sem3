@@ -132,7 +132,7 @@ const FormContract = () => {
           const renderOptions = (array) => {
             return (
               <>
-                <option disabled value="">Chọn</option>
+                <option disabled selected>Chọn</option>
                 {array.map((element) => (
                   <option key={element.code} value={element.code}>{element.name}</option>
                 ))}
