@@ -282,7 +282,7 @@ const Profile = () => {
                                      <tr>
                                         <th className="cat-product">Ngày tạo hợp đồng</th>
                                         <th className="cat-price">Ngày bắt đầu</th>
-                                        <th className="cat-price"style={{textAlign:"left"}}>Ngày kết thúc</th>
+                                        <th className="cat-price"style={{textAlign:"left"}}>Ngày gia hạn</th>
                                         <th className="cat-toprice">Gía trị hợp đồng</th>
                                         <th className="cat-price">Pack Data</th>
 
