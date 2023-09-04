@@ -167,3 +167,15 @@ export const getallofuser = async(id)=>{
        return [];
    }
 }
+
+export const userupcon = async(contract)=>{
+    try{
+        const url = "contracts/userupdate?id="+contract.id+"&chukydongtien="+contract.chukydongtien;
+        const rs = await api.get(url);
+        return rs.data;
+
+    }catch(error){
+       return null;
+   }
+
+}

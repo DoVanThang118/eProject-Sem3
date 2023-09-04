@@ -44,8 +44,8 @@ const getPack = async ()=>{
                                                 <h5>{val.name}</h5>
                                                 <h4>{val.typename}</h4>
                                                 <span>{val.description}</span>
-                                                <p>Price 1 Month: {val.gia1thang} USD</p>
-                                                <p>Price 1 Quarter: {val.gia1quy} USD</p>
+                                                <p>Price: {val.gia1thang} USD/Month</p>
+                                                <p>Price: {val.gia1quy} USD/Quarter</p>
                                                 {(state.userlogin!=null)?<Link to={"formcontract/"+val.id} className="lab-btn"><span>SUBSCRIBE</span></Link>:<Link to="/login" className="lab-btn"><span>SUBSCRIBE</span></Link> }
                                                 
                                                 

@@ -28,7 +28,7 @@ export const get = async ()=>{
  export const create_payment = async(payment) =>{
     const url = "extendcontract"
     try{
-        const rs = await api.post(url,{contractId: payment.contractId, userId: payment.userId, totalmoney: payment.totalmoney, content: payment.content   });
+        const rs = await api.post(url,{contractId: payment.contractId, userId: payment.userId, totalmoney: payment.totalmoney, content: payment.content, numbermonth: payment.numbermonth   });
         // Alert();
         return rs.data;
     }catch(error){

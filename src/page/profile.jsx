@@ -6,7 +6,7 @@ import PageHeader from "../component/layout/pageheader";
 import Progress from "../component/sidebar/progress";
 import Rating from "../component/sidebar/rating";
 import React, { useContext, useState, useEffect } from "react";
-import {find} from "../services/contract.service";
+import {find, userupcon} from "../services/contract.service";
 import {updatepayment,giahanhopdong} from "../services/contract.service";
 
 import UserContext from "../store/context";
@@ -128,7 +128,7 @@ const Profile = () => {
     const [contract, setContract] = useState({});
     const {id} = useParams();
     const[packdata ,setPackData] = useState({});
-    const[payment,setPayment] = useState({contractId:0, userId:state.userlogin.id, totalmoney:0,content:""})
+    const[payment,setPayment] = useState({contractId:0, userId:state.userlogin.id, totalmoney:0,content:"",numbermonth:0})
     const[listpay,setListpay] = useState([]);
 
     const findContract = async ()=>{
@@ -136,7 +136,7 @@ const Profile = () => {
         const li = await filter(id);
         setListpay(li);
         setContract(con);
-        setPayment({...payment,totalmoney:con.giatrihopdong, contractId:con.id,content:"Payment Contract"+con.id});
+        setPayment({...payment,totalmoney:con.giatrihopdong, contractId:con.id,content:"Payment Contract "+con.id, numbermonth: con.chukydongtien});
         setPackData(con.packdata);
     }
     console.log(contract);
@@ -158,29 +158,35 @@ const Profile = () => {
            const t = await updatepayment(contract.id);
            const c = await create_payment(payment);
             dispatch({type:"HIDE_LOADING"});
-            // if(c!=null){
-            //     window.location.reload();
-            //    }
-            Alert();
-
+            if(c!=null){
+                window.location.reload();
+               }
 
           }
           const successPay = async ()=>{
             dispatch({type:"SHOW_LOADING"});
-
            const t = await giahanhopdong(contract.id);
-           const c = await create_payment(payment);
-          
-           
+           const c = await create_payment(payment);  
             dispatch({type:"HIDE_LOADING"});
 
-            Alert();
 
-            // if(c!=null){
-            //     window.location.reload();
-            //    }
+            if(c!=null){
+                window.location.reload();
+               }
                
 
+          }
+          const handleMonth = (e)=>{
+            const t = e.target.value;
+            setContract({...contract,chukydongtien:t});
+          }
+
+          const updateContract = async ()=>{
+            const t = await userupcon(contract);
+            if(t!=null){
+                window.location.reload();
+               }
+      
           }
 
           console.log(contract.id);
@@ -192,7 +198,7 @@ const Profile = () => {
     return (
         <Fragment>
             <Header />
-            <PageHeader title={'Contract Profile'} curPage={'Contract Profile'} />
+            <PageHeader title={'Information Contract No '+id} curPage={'Contract Profile'} />
             <section className="instructor-single-section padding-tb section-bg">
                 <div className="container">
                     {/* <button onClick={Alert}>test</button> */}
@@ -205,7 +211,7 @@ const Profile = () => {
                                     <img src="../../assets/images/instructor/single/01.jpg" alt="instructor" />
                                 </div>
                                 <div className="instructor-single-content">
-                                    <h4 className="title">Name</h4>
+                                    <h4 className="title">Customer Name</h4>
                                     <p className="ins-dege">{contract.customername}</p>
                                     <Rating />
                                     <p className="ins-desc">{desc}</p>
@@ -236,9 +242,25 @@ const Profile = () => {
                                                 <span className="list-name">Price 1 Quar1er </span>
                                                 <span className="list-attr">{packdata.gia1quy} USD</span>
                                             </li>
-                                            <li className="d-flex flex-wrap justify-content-start">
-                                                <span className="list-name">Chu kỳ </span>
-                                                <span className="list-attr">{contract.chukydongtien}</span>
+                                            <li className="d-flex flex-wrap justify-content-start" >
+                                                <span className="list-name">Chukỳđóngtiền </span>
+                                                <span className="list-attr" style={{display:"flex",justifyContent:"space-between"}}>
+                                                    
+                                                    <div>{contract.chukydongtien} Month </div>
+
+                                                <div>
+                                                    <select style={{width:200,marginBottom:20,borderRadius:5}}  onClick={handleMonth}>
+                                                    <option value="">Choose Update</option>   
+                                                    <option value="1">1 Month</option>
+                                                    <option value="3">3 Month</option>
+                                                    <option value="6">6 Month</option>
+                                                    <option value="12">12 Month</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <button onClick={updateContract} type="button" className="lab-btn" style={{height:50}}><span>Update</span></button>
+                                                </span>
+                                                
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Content PackData </span>
@@ -275,7 +297,7 @@ const Profile = () => {
                 <div>
                     <div className="section-wrapper">
                         <div className="cart-top">
-                        <h4 style={{textAlign:"center", margin:10}}>Hợp đồng số {contract.id}</h4>
+                        <h4 style={{textAlign:"center", margin:10}}>Contract No {contract.id}</h4>
 
                             <table>
                                 <thead>
@@ -283,7 +305,9 @@ const Profile = () => {
                                         <th className="cat-product">Ngày tạo hợp đồng</th>
                                         <th className="cat-price">Ngày bắt đầu</th>
                                         <th className="cat-price"style={{textAlign:"left"}}>Ngày gia hạn</th>
-                                        <th className="cat-toprice">Gía trị hợp đồng</th>
+                                        <th className="cat-toprice">Chu kỳ đóng tiền</th>
+
+                                        <th className="cat-toprice">Gía trị</th>
                                         <th className="cat-price">Pack Data</th>
 
                                         <th className="cat-edit">Trạng thái</th>
@@ -299,14 +323,15 @@ const Profile = () => {
                                             </td>
                                             <td className="cat-price"> {(contract.ngaybatdausudung!=null)?new Date(contract.ngaybatdausudung).toLocaleDateString():<></>}</td>
                                             <td className="cat-price"> {(contract.ngayhethan!=null)?new Date(contract.ngayhethan).toLocaleDateString():<></>}</td>
+                                            <td className="cat-toprice">{contract.chukydongtien} Month</td>
+
                                             <td className="cat-toprice">{contract.giatrihopdong} USD</td>
                                             <td className="cat-price">{packdata.name}</td>
 
                                             <td className="cat-edit">
                                                {(contract.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(contract.status==1)?<div className="p-content">Mời thanh toán</div>
-                                               :(contract.status==2)?<div className="p-content">Thanh toán thành công chờ duyệt thiết bị lắp đặt</div>
-                                                :(contract.status==3)?<div className="p-content">Duyệt thiết bị thành công đang lắp đặt</div>
+                                               :(contract.status==2||contract.status==3)?<div className="p-content">Thanh toán thành công chờ lắp đặt trong 7 ngày</div>
                                                 :(contract.status==4)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
                                                 :(contract.status==5)?<div className="p-content">Rất xin lỗi không lắp đặt được tại địa chỉ quý khách cung cấp</div>
                                                 :<p></p>
@@ -333,7 +358,7 @@ const Profile = () => {
                             
                         </div>
                         <div className="cart-top">
-                            <h4 style={{textAlign:"center", margin:10}}>Lịch sử thanh toán của hợp đồng số {contract.id}</h4>
+                            <h4 style={{textAlign:"center", margin:10}}>Payment History Contract No {contract.id}</h4>
                             <table>
                                 <thead>
                                      <tr>
@@ -362,7 +387,7 @@ const Profile = () => {
                                             <td className="cat-price" > {e.id}</td>
 
                                             <td className="cat-price"> {e.content}</td>
-                                            <td className="cat-price"> {contract.chukydongtien} Month</td>
+                                            <td className="cat-price"> {e.numbermonth} Month</td>
 
                                             <td className="cat-price">{e.totalmoney} USD</td>
                                            
@@ -431,7 +456,7 @@ const Profile = () => {
                                                     (contract.status==4)?
                                                     <div className="p-content">
                                                         <div style={{textAlign:"center",marginBottom:30,marginTop:30}}>
-                                                        <h4>Mời Quý Khách {contract.customername} Gia Hạn Hợp Đồng Số {contract.id} </h4>
+                                                        <h4>Mời Quý Khách Gia Hạn Hợp Đồng Số {contract.id} </h4>
                                                         <h4>Total Money: {contract.giatrihopdong} USD /{contract.chukydongtien} Month </h4>
 
                                                         </div>

@@ -178,7 +178,7 @@ const FormContract = () => {
             <Header />
           
             
-            <PageHeader title={'Thông Tin Đăng Ký Gói Cước'} curPage={'Infomation Contract'} />
+            <PageHeader title={'Pack Data Subscribe Information'} curPage={'Information Contract'} />
             <div className="blog-section blog-single padding-tb section-bg">
                 <div className="container">
                 <Link to="/"><img src="../assets/images/logo/01.png" alt="logo"  width={120} borderRadius={20} style={{objectFit:'cover',borderRadius:20, marginTop:-880}} /></Link>
@@ -194,7 +194,7 @@ const FormContract = () => {
                                             </div>
 
                                     <div id="respond" className="comment-respond mb-lg-0">
-                                     <h1 className="title-border" style={{textAlign:"center"}}>Thông Tin Gói Cước</h1>
+                                     <h1 className="title-border" style={{textAlign:"center"}}>Pack Data Information</h1>
                                      <div className="add-comment" >
 
                                         <div style={{display:"flex",justifyContent:"center"}}>
@@ -203,7 +203,7 @@ const FormContract = () => {
                                         </div>
 
                                      
-                                    <h5 className="title-border" style={{textAlign:"center"}}>Tên Gói Cước: {pack.name}</h5>
+                                    <h5 className="title-border" style={{textAlign:"center"}}>Pack Data Name: {pack.name}</h5>
                                     <p>Content: {pack.description}</p>
                                     <p>Price 1 Month: {pack.gia1thang} USD</p>
                                     <p>Price 1 Quarter: {pack.gia1quy} USD</p>
@@ -266,7 +266,7 @@ const FormContract = () => {
                                                 {/*    placeholder="Your Message"*/}
                                                 {/*></textarea>*/}
                                                 {/*<button type="submit" className="lab-btn"><span>{btnText}</span></button>*/}
-                                             <div className="w-100"><h4>Customer information</h4></div>
+                                             <div className="w-100"><h4>Customer Information</h4></div>
                                              <div className="form-group">
                                                  <input  onChange={handleChange} type="text" name="customername" className="form-control" placeholder="Your Name *" required={true}/>
                                              </div>

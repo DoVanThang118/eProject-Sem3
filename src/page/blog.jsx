@@ -57,8 +57,8 @@ const BlogPage = () => {
                                                 <p>Content: {val.packdata.description}</p>
                                             </div>
                                             <div className="post-footer">
-                                                    <p>Price 1 Month :{val.packdata.gia1thang}</p>
-                                                    <p>Price 1 Quarter :{val.packdata.gia1quy}</p>
+                                                    <p>Price/Month :{val.packdata.gia1thang} USD</p>
+                                                    <p>Price/Quarter :{val.packdata.gia1quy} USD</p>
                                                     <p>Ngày tạo hợp đồng: {new Date(val.ngaytaohopdong).toLocaleDateString()}</p>
                                                     <p>Trạng thái hợp đồng: {(val.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(val.status==1)?<div className="p-content">Mời thanh toán</div>
