@@ -59,13 +59,15 @@ const BlogPage = () => {
                                             <div className="post-footer">
                                                     <p>Price/Month :{val.packdata.gia1thang} USD</p>
                                                     <p>Price/Quarter :{val.packdata.gia1quy} USD</p>
-                                                    <p>Ngày tạo hợp đồng: {new Date(val.ngaytaohopdong).toLocaleDateString()}</p>
-                                                    <p>Trạng thái hợp đồng: {(val.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
+                                                    <p>Ngày tạo hợp đồng : {new Date(val.ngaytaohopdong).toLocaleDateString()}</p>
+                                                    <p>Trạng thái hợp đồng : {(val.status==0)?<div className="p-content">Chờ kiểm tra lắp đặt</div>
                                                :(val.status==1)?<div className="p-content">Mời thanh toán</div>
                                                :(val.status==2)?<div className="p-content">Thanh toán thành công chờ duyệt thiết bị lắp đặt</div>
                                                 :(val.status==3)?<div className="p-content">Duyệt thiết bị thành công đang lắp đặt</div>
                                                 :(val.status==4)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
                                                 :(val.status==5)?<div className="p-content">Rất xin lỗi không lắp đặt được tại địa chỉ quý khách cung cấp</div>
+                                                :(val.status==6)?<div className="p-content">Khách hàng hủy hợp đồng</div>
+
                                                 :<p></p>
                                             
                                             }</p>

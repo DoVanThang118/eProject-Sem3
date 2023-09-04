@@ -6,7 +6,7 @@ import PageHeader from "../component/layout/pageheader";
 import Progress from "../component/sidebar/progress";
 import Rating from "../component/sidebar/rating";
 import React, { useContext, useState, useEffect } from "react";
-import {find, userupcon} from "../services/contract.service";
+import {find, userhuy, userupcon} from "../services/contract.service";
 import {updatepayment,giahanhopdong} from "../services/contract.service";
 
 import UserContext from "../store/context";
@@ -188,6 +188,14 @@ const Profile = () => {
                }
       
           }
+          const huyhopdong = async ()=>{
+
+            const t = await userhuy(id);
+            if(t!=null){
+                window.location.reload();
+               }
+
+          }
 
           console.log(contract.id);
           console.log(payment);
@@ -244,21 +252,27 @@ const Profile = () => {
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start" >
                                                 <span className="list-name">Chukỳđóngtiền </span>
+                                                
                                                 <span className="list-attr" style={{display:"flex",justifyContent:"space-between"}}>
                                                     
                                                     <div>{contract.chukydongtien} Month </div>
+                                                    {(contract.status==4)? <div style={{display:"flex",justifyContent:"space-between"}}>
 
-                                                <div>
-                                                    <select style={{width:200,marginBottom:20,borderRadius:5}}  onClick={handleMonth}>
-                                                    <option value="">Choose Update</option>   
-                                                    <option value="1">1 Month</option>
-                                                    <option value="3">3 Month</option>
-                                                    <option value="6">6 Month</option>
-                                                    <option value="12">12 Month</option>
-                                                    </select>
-                                                </div>
+                                                                            <div style={{marginRight:20}}>
+                                                                                <select style={{width:200,marginBottom:20,borderRadius:5}}  onClick={handleMonth}>
+                                                                                <option value="">Choose Update</option>   
+                                                                                <option value="1">1 Month</option>
+                                                                                <option value="3">3 Month</option>
+                                                                                <option value="6">6 Month</option>
+                                                                                <option value="12">12 Month</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <button onClick={updateContract} type="button" className="lab-btn" style={{height:50}}><span>Update</span></button>
+                                                                            </div>:<></>}
+
+                                               
                                                 
-                                                <button onClick={updateContract} type="button" className="lab-btn" style={{height:50}}><span>Update</span></button>
                                                 </span>
                                                 
                                             </li>
@@ -270,6 +284,7 @@ const Profile = () => {
                                                 <span className="list-name">Hotline</span>
                                                 <span className="list-attr">1900000009</span>
                                             </li>
+                                           
 
                                          
                                            
@@ -297,7 +312,11 @@ const Profile = () => {
                 <div>
                     <div className="section-wrapper">
                         <div className="cart-top">
+                            <div style={{display:"flex",justifyContent:"center", marginBottom:20, marginTop:20}}>
                         <h4 style={{textAlign:"center", margin:10}}>Contract No {contract.id}</h4>
+                        {(contract.status==4)?<button onClick={huyhopdong} type="button" className="lab-btn" style={{height:50}}><span>Hủy Hợp Đồng</span></button>
+:<></>}
+                        </div>
 
                             <table>
                                 <thead>
@@ -334,6 +353,8 @@ const Profile = () => {
                                                :(contract.status==2||contract.status==3)?<div className="p-content">Thanh toán thành công chờ lắp đặt trong 7 ngày</div>
                                                 :(contract.status==4)?<div className="p-content">Lắp đặt thành công mời sử dụng</div>
                                                 :(contract.status==5)?<div className="p-content">Rất xin lỗi không lắp đặt được tại địa chỉ quý khách cung cấp</div>
+                                                :(contract.status==6)?<div className="p-content">Khách hàng hủy hợp đồng</div>
+
                                                 :<p></p>
                                             
                                             }

@@ -179,3 +179,15 @@ export const userupcon = async(contract)=>{
    }
 
 }
+
+export const userhuy = async(id)=>{
+    try{
+        const url = "contracts/userhuy?id="+id;
+        const rs = await api.get(url);
+        return rs.data;
+
+    }catch(error){
+       return null;
+   }
+
+}
