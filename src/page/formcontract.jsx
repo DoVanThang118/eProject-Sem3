@@ -276,7 +276,7 @@ const FormContract = () => {
 
                                              <div className="w-100"><h4>Enter address</h4></div>
                                              <div className="form-group">
-                                                <label style={{marginBottom:5}}>Tỉnh/Thành Phố</label>
+                                                <label style={{marginBottom:5}}>City</label>
                                                 <select   style={{
                                                     border: '1px solid #f0f0f0',
                                                     borderRadius: '4px',
@@ -290,7 +290,7 @@ const FormContract = () => {
 
                                              </div>
                                              <div className="form-group">
-                                             <label style={{marginBottom:5}}>Quận/Huyện</label>
+                                             <label style={{marginBottom:5}}>District</label>
 
                                                 <select   style={{
                                                         border: '1px solid #f0f0f0',
@@ -304,7 +304,7 @@ const FormContract = () => {
                                                 </select>                                             
                                             </div>
                                             <div className="form-group">
-                                            <label style={{marginBottom:5}}>Phường/Xã</label>
+                                            <label style={{marginBottom:5}}>Ward</label>
 
                                                         <select   style={{
                                                         border: '1px solid #f0f0f0',
