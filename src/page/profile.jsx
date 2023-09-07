@@ -171,6 +171,7 @@ const Profile = () => {
 
 
             if(c!=null){
+                await Alert();
                 window.location.reload();
                }
                
@@ -180,20 +181,75 @@ const Profile = () => {
             const t = e.target.value;
             setContract({...contract,chukydongtien:t});
           }
+          const Confirm  = ()=>{
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }
+              })
+        }
 
           const updateContract = async ()=>{
-            const t = await userupcon(contract);
-            if(t!=null){
-                window.location.reload();
-               }
-      
+            Swal.fire({
+                title: 'Are you sure update?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, update it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    const t = userupcon(contract);
+                    if(t!=null){
+                           Swal.fire(
+                    'Update Success!',
+                    'Your file has been update.',
+                    'success'
+                        )
+
+                        window.location.reload();
+                    }
+
+                }
+              })
           }
           const huyhopdong = async ()=>{
 
-            const t = await userhuy(id);
-            if(t!=null){
-                window.location.reload();
-               }
+            Swal.fire({
+                title: 'Are you sure contract cancellation?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, contract cancellation it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    const t = userhuy(id);
+                    if(t!=null){
+                           Swal.fire(
+                    'Contract cancellation Success!',
+                    'Your file has been contract cancellation.',
+                    'success'
+                  )
+                        window.location.reload();
+                }
+                }
+              })
+          
 
           }
 
