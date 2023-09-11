@@ -97,7 +97,7 @@ const FormContract = () => {
       };
     useEffect(()=>{
         findPack();
-        callAPI('https://provinces.open-api.vn/api/?depth=1');
+        callAPI('https://provinces.open-api.vn/api/?depth=2');
         },[]);
 
 

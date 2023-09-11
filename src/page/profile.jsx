@@ -284,7 +284,7 @@ const Profile = () => {
                                         
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Address</span>
-                                                <span className="list-attr">{contract.address} </span>
+                                                <span className="list-attr">{contract.address}/{contract.district}/{contract.city} </span>
                                             </li>
                                             <li className="d-flex flex-wrap justify-content-start">
                                                 <span className="list-name">Email </span>

@@ -111,7 +111,13 @@ const Banner = () => {
                 </div>
             </div>
             <div className="all-shapes"></div>
-            
+            <div className="cbs-content-list d-none">
+                <ul className="lab-ul">
+                    {shapeList.map((val, i) => (
+                        <li className={val.className} key={i}><a href={val.link}>{val.name}</a></li>
+                    ))}
+                </ul>
+            </div>
             <div className="section-wrapper" style={{marginTop:30}}>
                     <div className="row g-4 justify-content-center row-cols-xl-4 row-cols-md-2 row-cols-1 ">
                     {packdata.map((val, i) => (
