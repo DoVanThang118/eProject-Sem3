@@ -97,7 +97,7 @@ const FormContract = () => {
       };
     useEffect(()=>{
         findPack();
-        callAPI('https://provinces.open-api.vn/api/?depth=2');
+        callAPI('https://provinces.open-api.vn/api/?depth=1');
         },[]);
 
 
@@ -164,6 +164,13 @@ const FormContract = () => {
             setAdd({...add,war:findward.name})
 
           };
+
+          const handleAddChange = (event)=>{
+
+            add[event.target.name] = event.target.value;
+            setAdd(add);
+
+          }
     
         
           
@@ -275,7 +282,8 @@ const FormContract = () => {
                                              </div>
 
                                              <div className="w-100"><h4>Enter address</h4></div>
-                                             <div className="form-group">
+
+                                             {(provinces.length>0?<div className="form-group">
                                                 <label style={{marginBottom:5}}>City</label>
                                                 <select   style={{
                                                     border: '1px solid #f0f0f0',
@@ -287,9 +295,12 @@ const FormContract = () => {
                                                 }} id="province"  onChange={handleProvinceChange} required={true}>
                                                     {renderOptions(provinces)}
                                                 </select>
+                                             </div>:<div className="form-group">
+                                                <label></label>
+                                                 <input  onChange={handleAddChange} type="text" name="pro" className="form-control" placeholder="City *" required={true}/>
+                                             </div>)}
 
-                                             </div>
-                                             <div className="form-group">
+                                             {(provinces.length>0?  <div className="form-group">
                                              <label style={{marginBottom:5}}>District</label>
 
                                                 <select   style={{
@@ -302,8 +313,13 @@ const FormContract = () => {
                                                     }} id="district" placeholder="Quận/Huyện" onChange={handleDistrictChange} required={true}>
                                                     {renderOptions(districts)}
                                                 </select>                                             
-                                            </div>
-                                            <div className="form-group">
+                                            </div>:<div className="form-group">
+                                                <label></label>
+                                                 <input  onChange={handleAddChange} type="text" name="dis" className="form-control" placeholder="District *" required={true}/>
+                                             </div>)}
+
+
+                                             {(provinces.length>0? <div className="form-group">
                                             <label style={{marginBottom:5}}>Ward</label>
 
                                                         <select   style={{
@@ -316,8 +332,14 @@ const FormContract = () => {
                                                     }} id="ward" placeholder="Phường/Xã" onChange={handleWardChange} required={true}>
                                                     {renderOptions(wards)}
                                                 </select>                                            
-                                            </div>
-                                            <div className="form-group" style={{marginTop:28}}>
+                                            </div> :<div className="form-group">
+                                            <label></label>
+                                                 <input  onChange={handleAddChange} type="text" name="war" className="form-control" placeholder="Ward *" required={true}/>
+                                             </div>)}
+                                             
+                                           
+                                            
+                                            <div className="form-group" style={{marginTop:26}}>
                                                  <div className="select-item">
                                                     <select   style={{
                                                         border: '1px solid #f0f0f0',
